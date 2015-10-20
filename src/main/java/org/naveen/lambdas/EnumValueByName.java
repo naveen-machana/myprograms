@@ -12,8 +12,6 @@ public class EnumValueByName {
 			Class<T> enumTypeClass,
 			Function<T, R> method) {
 		
-		if (isStringNotEmpty(enumToBeSearched) == false) return null;
-		
 		if (enumTypeClass == null || method == null) return null;
 		
 		if (isStringNotEmpty(enumToBeSearched)) {
@@ -52,8 +50,16 @@ public class EnumValueByName {
 		System.out.println(v);
 	}
 	
+	public static void testGetEnumInstance() {
+		
+		PriorityTypeName e = EnumValueByName.<PriorityTypeName, PriorityTypeName>
+			getEnumValueByName("INCORRECT", PriorityTypeName.class, t -> t);
+		
+		System.out.println(e);
+	}
+	
 	public static void main(String[] args) {
-		testWithValidEnumNameForString();
+		testGetEnumInstance();
 	}
 	
 	enum PriorityTypeName {
