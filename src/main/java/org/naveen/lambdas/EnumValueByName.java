@@ -12,6 +12,10 @@ public class EnumValueByName {
 			Class<T> enumTypeClass,
 			Function<T, R> method) {
 		
+		if (isStringNotEmpty(enumToBeSearched) == false) return null;
+		
+		if (enumTypeClass == null || method == null) return null;
+		
 		if (isStringNotEmpty(enumToBeSearched)) {
 			
 			T[] enums = enumTypeClass.getEnumConstants();
@@ -21,8 +25,7 @@ public class EnumValueByName {
 					if (t.name().equalsIgnoreCase(enumToBeSearched)) {
 						return method.apply(t);
 					}
-				}
-				
+				}				
 			}
 		}
 		
