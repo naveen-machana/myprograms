@@ -1,24 +1,67 @@
 package org.naveen.techgig.pokerbazi;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Iterator;
 
 public class GetMaximumSumCombinations {
 	
-	private static List<Object> getMaxCombinations(int[] data, int r) {
-		List<Object> combinations = new LinkedList<>();
+	private static class Node {
+		Object data;
+		Node next;
+		
+		Node(Object data) {
+			this.data = data;
+		}
+	}
+	
+	private static class Stack implements Iterable<Object>{
+		private Node top;
+		private int size = 0;
+		
+		void add(Object data) {
+			Node temp = new Node(data);
+			temp.next = top;
+			top = temp;
+			size++;
+		}
+		
+		int size() { return size;}
+		void clear() {top = null; size = 0;}
+
+		@Override
+		public Iterator<Object> iterator() {
+			return new Iterator<Object>() {
+				Node temp = top;
+				
+				@Override
+				public boolean hasNext() {
+					return temp.next != null;
+				}
+
+				@Override
+				public Object next() {
+					Object data = temp.data;
+					temp = temp.next;
+					return data;
+				}				
+			};
+		}
+		
+	}
+	
+	private static Stack getMaxCombinations(int[] data, int r) {
+		Stack combinations = new Stack();
 		
 		if (data == null || data.length == 0 || r == 0) return combinations;
 		
 		int[] temp = new int[r];
-		int[] max = new int[]{0};
+		int[] max = new int[]{Integer.MIN_VALUE};
 		maxSumCombinationsUtil(data, temp, data.length, r, max, combinations, 0, 0);
 		return combinations;
 	}
 	
 	private static void maxSumCombinationsUtil(int[] data, int[] temp,
-			int n, int r, int[] max, List<Object> combinations, int index, int i) {
+			int n, int r, int[] max, Stack combinations, int index, int i) {
 		
 		if (index == r) {
 			int currentSum = 0;			
@@ -44,7 +87,7 @@ public class GetMaximumSumCombinations {
 	}
 
 	public static void main(String[] args) {
-		List<Object> combinations = getMaxCombinations(new int[]{2, 5, 1, 2, 4, 1, 6, 5, 2, 2}, 6);
+		Stack combinations = getMaxCombinations(new int[]{2, 5, 1, 2, 4, 1, 6, 5, 2, 2}, 6);
 		for (Object array: combinations) {
 			int[] a = (int[])array;
 			System.out.println(Arrays.toString(a));
