@@ -7,8 +7,8 @@ public class GetMaximumSumCombinations {
 		if (data == null || (n = data.length) == 0 || r == 0) return 0;
 		
 		int[] temp = new int[r];
-		int[] max = new int[]{Integer.MIN_VALUE};
-		int[] combinationsCount = new int[]{0};
+		int[] max = {Integer.MIN_VALUE};
+		int[] combinationsCount = {0};
 		countCombinations(data, temp, n, r, max, combinationsCount, 0, 0);
 		return combinationsCount[0];
 	}
