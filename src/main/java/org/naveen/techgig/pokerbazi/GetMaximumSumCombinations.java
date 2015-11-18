@@ -35,7 +35,7 @@ public class GetMaximumSumCombinations {
 				
 				@Override
 				public boolean hasNext() {
-					return temp.next != null;
+					return temp != null;
 				}
 
 				@Override
