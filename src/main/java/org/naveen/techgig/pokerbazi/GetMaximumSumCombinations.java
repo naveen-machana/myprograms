@@ -14,7 +14,8 @@ public class GetMaximumSumCombinations {
 	}
 	
 	private static void countCombinations(int[] data, int[] temp,
-			int n, int r, int[] maxValue, int[] combinationsCount, int tempArrayIndex, int dataArrayIndex) {
+			int n, int r, int[] maxValue, int[] combinationsCount, 
+			int tempArrayIndex, int dataArrayIndex) {
 		
 		if (tempArrayIndex == r) {
 			int sum = 0;			
