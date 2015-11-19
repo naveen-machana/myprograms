@@ -14,8 +14,8 @@ import javax.swing.text.SimpleAttributeSet;
 
 public class CallManager {	
 	
-	private static final int MAX_SIZE = 50;
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-mmm-yy hh:mm:ss");
+	private static final int MAX_SIZE = 20;
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-mmm-yy hh:mm:ss:SSS");
 	private static class LRUCache extends LinkedHashMap<String, CallManager.CallEntry> {
 		public LRUCache() {
 			super(16, 0.75f, true);
@@ -74,7 +74,7 @@ public class CallManager {
 			for (CallDetails entry : history) {
 				builder.append("\n").append(entry.toString());
 			}
-			return builder.append("\n").toString();
+			return builder.append("\n\n").toString();
 		}
 	}
 
@@ -100,8 +100,9 @@ public class CallManager {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		for (Map.Entry<String, CallEntry> entry : callLog.entrySet()) {
-			builder.append(entry.getValue().toString());
+		List<Map.Entry<String, CallEntry>> entries = new LinkedList<>(callLog.entrySet());
+		for (int i = entries.size()-1; i >= 0; i--) {
+			builder.append(entries.get(i).getValue().toString());
 		}
 		return builder.toString();
 	}

@@ -11,6 +11,7 @@ public class TestDriver {
 		CallEvent incomingCallFromSean = new CallEvent("9999999997", new Date(), CallType.INCOMING);
 		CallEvent unknownIncomingCall = new CallEvent("8999999999", new Date(), CallType.INCOMING);
 		CallEvent unknownOutGoingCall = new CallEvent("8799999999", new Date(), CallType.OUTGOING);
+		CallEvent outGoingCallToSandy = new CallEvent("9999999999", new Date(), CallType.OUTGOING);
 		
 		CallManager callManager = new CallManager();
 		callManager.performEvent(missedCallFromSandy);
@@ -19,6 +20,7 @@ public class TestDriver {
 		callManager.performEvent(incomingCallFromSean);
 		callManager.performEvent(unknownIncomingCall);
 		callManager.performEvent(unknownOutGoingCall);
+		callManager.performEvent(outGoingCallToSandy);
 		
 		System.out.println(callManager);
 	}
