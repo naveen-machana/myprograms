@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.naveen.interviews.mobile.callregistry.CallManager.CallDetails;
-
 public class Contact {
 	private String name;
 	private final List<String> numbers;
