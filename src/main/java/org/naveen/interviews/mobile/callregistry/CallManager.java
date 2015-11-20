@@ -15,95 +15,83 @@ import javax.swing.text.SimpleAttributeSet;
 public class CallManager {	
 	
 	private static final int MAX_SIZE = 20;
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-mmm-yy hh:mm:ss:SSS");
-	private static class LRUCache extends LinkedHashMap<String, CallManager.CallEntry> {
+	
+	private static class LRUCache extends LinkedHashMap<NumberTimed, CallEntry> {
 		public LRUCache() {
 			super(32, 0.75f, true);
 		}
 
-		protected boolean removeEldestEntry(Map.Entry<String, CallManager.CallEntry> eldest) {
+		protected boolean removeEldestEntry(Map.Entry<NumberTimed, CallEntry> eldest) {
 	        return size() > MAX_SIZE;
 	    }
-	}
+	}	
 	
-	public static class CallDetails{
-		private final Contact person;
-		private final CallType callType;
-		private final String phoneNumber;
-		private final Date timeOfCall;
-		
-		CallDetails(Contact person, CallType callType, String phoneNumber, Date timeOfCall) {
-			Objects.requireNonNull(person);
-			Objects.requireNonNull(callType);
-			Objects.requireNonNull(phoneNumber);
-			Objects.requireNonNull(timeOfCall);
-			this.person = person;
-			this.callType = callType;
-			this.phoneNumber = phoneNumber;
-			this.timeOfCall = timeOfCall;
-		}
-		
-		@Override
-		public String toString() {			
-			StringBuilder builder = new StringBuilder();
-			builder.append("[").append(callType.toString())
-				   .append(", ").append(phoneNumber)
-				   .append(", ").append(sdf.format(timeOfCall)).append("]");
-			return builder.toString();
-		}
-	}
-	
-	public static class CallEntry {
-		private final Contact contact;
-		private final LinkedList<CallDetails> history;
-		
-		public CallEntry(Contact contact) {
-			this.contact = contact;
-			history = new LinkedList<>();
-		}
-		
-		public void add(CallDetails logEntry) {
-			history.addFirst(logEntry);
-		}
-		
-		@Override
-		public String toString() {
-			StringBuilder builder = new StringBuilder();
-			builder.append(contact.name())
-				   .append("\n------------------------ ");
-			for (CallDetails entry : history) {
-				builder.append("\n").append(entry.toString());
-			}
-			return builder.append("\n\n").toString();
-		}
-	}
-
-	private Map<String, CallManager.CallEntry> callLog = new LRUCache();
+	private Map<NumberTimed, CallEntry> callLog = new LRUCache();
 	
 	public void performEvent(CallEvent event) {
 		String phoneNumber = event.getPhoneNumber();
 		Contact contact = ContactsManager.getContact(phoneNumber);
 		CallDetails callDetails = new CallDetails(contact, event.getCallType(), phoneNumber, event.getTimeOfCall());
 		
-		CallEntry callLogEntry = callLog.get(phoneNumber);
+		NumberTimed cacheKey = new NumberTimed(phoneNumber, event.getTimeOfCall());
+		CallEntry callLogEntry = callLog.get(cacheKey);		
+		
 		if (callLogEntry == null) {
 			callLogEntry = new CallEntry(contact);
 		}
 		callLogEntry.add(callDetails);
-		callLog.put(phoneNumber, callLogEntry);
+		callLog.put(cacheKey, callLogEntry);
 	}
 	
-	public Iterator<Map.Entry<String, CallEntry>> getCallLog() {
+	public Iterator<Map.Entry<NumberTimed, CallEntry>> getCallLog() {
 		return callLog.entrySet().iterator();
 	}
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		List<Map.Entry<String, CallEntry>> entries = new LinkedList<>(callLog.entrySet());
+		List<Map.Entry<NumberTimed, CallEntry>> entries = new LinkedList<>(callLog.entrySet());
 		for (int i = entries.size()-1; i >= 0; i--) {
 			builder.append(entries.get(i).getValue().toString());
 		}
 		return builder.toString();
+	}
+	
+	private static class NumberTimed{
+		private String number;
+		private Date day;
+		NumberTimed(String number, Date day) {
+			Objects.requireNonNull(number);
+			Objects.requireNonNull(day);
+			this.number = number;
+			this.day = day;
+		}
+		
+		@Override
+		public boolean equals(Object o) {
+			if (o == this) return true;
+			if (!(o instanceof NumberTimed)) return false;
+			NumberTimed n = (NumberTimed)o;
+			if (!n.number.equals(this.number)) return false;
+			return compareDayIgnoreTime(day, n.day);
+		}
+		
+		@Override
+		public int hashCode() {
+			int prime = 17, res = 0;
+			res = prime * number.hashCode();
+			res = res * 17 + (day.getYear());
+			res = res * 17 + (day.getMonth());
+			res = res * 17 + (day.getDay());
+			return res;
+			
+		}
+		
+		private boolean compareDayIgnoreTime(Date d1, Date d2) {
+			if (d1.getYear() != d2.getYear()) return false;
+		    if (d1.getMonth() != d2.getMonth()) return false;		        
+		    if (d1.getDate() != d2.getDate()) return false;
+		    return true;
+		}
 	}
 }
