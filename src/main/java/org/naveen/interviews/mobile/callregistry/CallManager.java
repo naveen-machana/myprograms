@@ -18,7 +18,7 @@ public class CallManager {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-mmm-yy hh:mm:ss:SSS");
 	private static class LRUCache extends LinkedHashMap<String, CallManager.CallEntry> {
 		public LRUCache() {
-			super(16, 0.75f, true);
+			super(32, 0.75f, true);
 		}
 
 		protected boolean removeEldestEntry(Map.Entry<String, CallManager.CallEntry> eldest) {
