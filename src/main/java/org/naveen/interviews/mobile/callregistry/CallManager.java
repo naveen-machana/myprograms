@@ -1,7 +1,5 @@
 package org.naveen.interviews.mobile.callregistry;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -10,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.swing.text.SimpleAttributeSet;
-
 public class CallManager {	
 	
 	private static final int MAX_SIZE = 20;
 	
 	private static class LRUCache extends LinkedHashMap<NumberTimed, CallEntry> {
+		private static final long serialVersionUID = 1L;
+
 		public LRUCache() {
 			super(32, 0.75f, true);
 		}
