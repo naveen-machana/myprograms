@@ -2,7 +2,6 @@ package org.naveen.testprograms;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class SortToGetLargestNumber {
@@ -14,6 +13,7 @@ public class SortToGetLargestNumber {
 		numbers.add(548);
 		numbers.add(60);
 		System.out.println(numbers);
+		
 		Collections.sort(numbers, (x, y) -> {
 				String one = x + "";
 				String two = y + "";
@@ -23,6 +23,7 @@ public class SortToGetLargestNumber {
 			}
 		);
 		System.out.println(numbers);
+		
 	}
 
 }
