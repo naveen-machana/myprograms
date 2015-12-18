@@ -93,8 +93,8 @@ public class FindObjectsInBinaryImage {
 		String size = "50,30";
 		String input = "40,0,60,1,100,0,50,1,60,0,500,1,60,0,30,1,100,0,240,1,50,0,10,1,40,0,60,1,30,0,40,1,30,0";
 		int[][] a = createArrayFromInput(size, input);
-		printArray(a);
-		//System.out.println(findNumberOfObjects(a));		
+		//printArray(a);
+		System.out.println(findNumberOfObjects(a));		
 	}
 
 }
