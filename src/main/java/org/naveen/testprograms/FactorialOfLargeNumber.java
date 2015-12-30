@@ -1,4 +1,4 @@
-package org.naveen.concurrency.testprograms;
+package org.naveen.testprograms;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.naveen.concurrency.testprograms;
+package org.naveen.testprograms;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

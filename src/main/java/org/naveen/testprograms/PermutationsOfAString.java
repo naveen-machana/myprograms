@@ -1,4 +1,4 @@
-package org.naveen.concurrency.testprograms;
+package org.naveen.testprograms;
 
 public class PermutationsOfAString {
 	private static void swap(char[] data, int l, int r){

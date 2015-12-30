@@ -1,4 +1,4 @@
-package org.naveen.concurrency.testprograms;
+package org.naveen.testprograms;
 
 public class FindDuplicateCharacter {
 
