@@ -76,7 +76,7 @@ public class Constants {
 		return null;
 	}
 	
-	public static Map<Cell, List<Cell>> initAdjacentCorners() {
+	private static Map<Cell, List<Cell>> initAdjacentCorners() {
 		Map<Cell, List<Cell>> map = new HashMap<>();
 		
 		List<Cell> list = new ArrayList<>();	
