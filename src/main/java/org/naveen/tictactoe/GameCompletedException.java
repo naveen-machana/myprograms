@@ -2,6 +2,10 @@ package org.naveen.tictactoe;
 
 public class GameCompletedException extends RuntimeException {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final Player winner;
 	
 	public GameCompletedException(Player winner) {
