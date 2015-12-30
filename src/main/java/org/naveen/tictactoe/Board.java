@@ -41,7 +41,7 @@ public class Board {
 			Cell cell = readInput(player);
 			
 			// check if the given position is not already taken
-			boolean isValid = ensureValidPosition(cell);
+			ensureValidPosition(cell);
 
 			// set character in given position
 			a[cell.x()][cell.y()] = player.character();
