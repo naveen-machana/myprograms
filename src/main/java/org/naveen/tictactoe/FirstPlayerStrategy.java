@@ -183,7 +183,8 @@ public class FirstPlayerStrategy implements Strategy {
 			}
 		}
 	}
-
+	
+	// first move is center opponent first move is corner
 	private class FMCOFMCORNER implements Strategy {
 		
 		private Cell formAnXXODiagonal(Cell secondMove) {
