@@ -30,13 +30,9 @@ public class Board {
 	
 	public void play(Player player) throws InterruptedException, InvalidPositionException {
 		synchronized(lock) {
-			try {
-				while (!isComplete() && currentPlayer != player.id()) {
+			while (!isComplete() && currentPlayer != player.id()) {
 					lock.wait();
-				}				
-			} catch (InterruptedException e) {
-				throw e;
-			}
+			}				
 			
 			if (isComplete()) {
 				throw new GameCompletedException("Game is already completed", winner.get().player);
