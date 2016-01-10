@@ -17,7 +17,21 @@ public class ReturnValueTesting {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(returnValue());
+		//System.out.println(returnValue());
+		System.out.println(returnValueWithNoCatch());
+	}
+	
+	public static int returnValueWithNoCatch() {
+		try {
+			int i = 20;
+			i = 20/ 0;
+			return i;
+		}
+		
+		finally {
+			return 10;
+		}
+		
 	}
 
 }
