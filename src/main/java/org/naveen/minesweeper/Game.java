@@ -1,5 +1,7 @@
 package org.naveen.minesweeper;
 
+import org.naveen.minesweeper.Board;
+
 public class Game {
 
 	public Game() {

@@ -1,5 +1,7 @@
 package org.naveen.minesweeper;
 
+import org.naveen.minesweeper.Cell;
+
 // assumptions: 1. row and columns will not exceed 128, 128 (meaning 128 rows and 128 columns grid)
 
 public class Cell {
