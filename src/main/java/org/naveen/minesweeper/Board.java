@@ -27,29 +27,6 @@ public class Board {
 		totalCells = rows * cols;
 	}
 	
-	private boolean isCompleted() {
-		return (isCompleted || (noMines == (totalCells - noOfOpened)));
-	}
-	
-	public void setPrintOriginal(boolean printOriginal) {
-		this.printOriginal = printOriginal;
-	}
-	
-	private void intializeBoard() {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				board[i][j] = new Cell(i, j);
-			}
-		}
-	}
-
-	private void validate(int rows, int cols, int noOfMines) {		
-		if (rows > 128 || cols > 128 || noOfMines >= (rows * cols)){
-			throw new RuntimeException("Rows and cols should be less than 128. "
-					+ "And also number of mines should not exceed " + (rows * cols));
-		}
-	}
-	
 	public void play() {
 		while (!isCompleted()) {
 			System.out.println("Enter values for [Row, Column] : ");
@@ -208,6 +185,29 @@ public class Board {
 	
 	private Cell getCell(Cell cell) {
 		return board[cell.x()][cell.y()];
+	}
+	
+	private boolean isCompleted() {
+		return (isCompleted || (noMines == (totalCells - noOfOpened)));
+	}
+	
+	public void setPrintOriginal(boolean printOriginal) {
+		this.printOriginal = printOriginal;
+	}
+	
+	private void intializeBoard() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				board[i][j] = new Cell(i, j);
+			}
+		}
+	}
+
+	private void validate(int rows, int cols, int noOfMines) {		
+		if (rows > 128 || cols > 128 || noOfMines >= (rows * cols)){
+			throw new RuntimeException("Rows and cols should be less than 128. "
+					+ "And also number of mines should not exceed " + (rows * cols));
+		}
 	}
 	
 	
