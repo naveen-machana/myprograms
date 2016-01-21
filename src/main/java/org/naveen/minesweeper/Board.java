@@ -98,14 +98,9 @@ public class Board {
 			//exit:
 			while (! currentNeighbors.isEmpty()) {
 				for (Cell cell : currentNeighbors) {
-					cell.setOpened(true);
-					noOfOpened++;
 					
-					if (isCompleted()) {
-						this.isCompleted = true;
-						//break exit;
-						throw new GameOverException("Congratulations!!! You won the game.");
-					}
+					openCell(cell);					
+					checkIfCompleted();
 					
 					for (Neighbors neighbor : Neighbors.values()) {
 						Cell resolvedCell;
@@ -115,15 +110,22 @@ public class Board {
 							(!nextNeighbors.contains(resolvedCell)) &&
 							(!currentNeighbors.contains(resolvedCell))) {
 							
+							// if resolved cell is an empty cell then add it to the next neighbors list
+							// so that its neighbors can also be opened
 							if (resolvedCell.value() == Cell.SPACE)
 								nextNeighbors.add(resolvedCell);
 							else {
-								noOfOpened++;
-								resolvedCell.setOpened(true);
+								// if resolved cell is next to a mine, don't open neighbors of 
+								// the resolved cell
+								openCell(resolvedCell);		
+								checkIfCompleted();
 							}
 						}
 					}				
 				}
+				// next neighbors list contains cells that are to be opened in the
+				// next run. if next neighbors list is empty
+				// the loop will be completed
 				currentNeighbors = nextNeighbors;
 				nextNeighbors = new LinkedList<>();
 			}			
@@ -165,6 +167,19 @@ public class Board {
 				}
 			}
 		}
+	}
+	
+	private void checkIfCompleted() {
+		if (isCompleted()) {
+			this.isCompleted = true;
+			//break exit;
+			throw new GameOverException("Congratulations!!! You won the game.");
+		}
+	}
+	
+	private void openCell(Cell cell) {
+		noOfOpened++;
+		cell.setOpened(true);
 	}
 	
 	private Cell resolve(int cellNumber, Neighbors direction) {
