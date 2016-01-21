@@ -137,16 +137,15 @@ public class Board {
 		// so 7x7 = (7*8+7 = 63);
 		Random r = new Random();
 		int cell = userSelectionCell.x() * rows + userSelectionCell.y();
-		List<Cell> mines = new ArrayList<>(noMines);
+		List<Integer> mines = new ArrayList<>(noMines);
 		for (int i = 0; i < noMines; i++) {
-			Cell generated;
+			int pick;
 			do{
-				int pick = r.nextInt(totalCells);
-				generated = new Cell(pick/rows, pick%cols);
-			} while (generated.equals(userSelectionCell) || mines.contains(generated));
+				pick = r.nextInt(totalCells);
+			} while (cell == pick || mines.contains(pick));
 			
-			mines.add(generated);
-			Cell mineCell = getCell(generated);
+			mines.add(pick);
+			Cell mineCell = getCell(pick);
 			mineCell.setValue(Cell.MINE);
 		}
 		
@@ -154,9 +153,9 @@ public class Board {
 		fillNeighbors(mines);
 	}
 	
-	private void fillNeighbors(List<Cell> mines) {
+	private void fillNeighbors(List<Integer> mines) {
 		
-		for (Cell cell : mines) {
+		for (Integer cell : mines) {
 			
 			for (Neighbors direction : Neighbors.values()) {
 				Cell resolvedCell = null;
@@ -166,6 +165,10 @@ public class Board {
 				}
 			}
 		}
+	}
+	
+	private Cell resolve(int cellNumber, Neighbors direction) {
+		return resolve(new Cell(cellNumber / rows, cellNumber % cols), direction);
 	}
 	
 	private Cell resolve(Cell cell, Neighbors direction) {
@@ -182,6 +185,10 @@ public class Board {
 			return false;
 		
 		return true;
+	}
+	
+	private Cell getCell(int cellNumber) {
+		return board[cellNumber / rows][cellNumber % cols];
 	}
 	
 	private Cell getCell(Cell cell) {
