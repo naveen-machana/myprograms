@@ -35,9 +35,9 @@ public class Board {
 			int c = in.nextInt();
 			Cell cell = new Cell(r, c);
 			
-			// this is the first attempt of the user
-			// generate the board
 			try {
+				// if this is the first attempt of the user
+				// generate the board
 				if (noOfOpened == 0) {
 					randomize(cell);
 				}
