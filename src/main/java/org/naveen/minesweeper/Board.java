@@ -53,7 +53,7 @@ public class Board {
 		}
 	}
 	
-	public void openNeighbors(Cell selectedCell) throws InvalidUserSelection {
+	private void openNeighbors(Cell selectedCell) throws InvalidUserSelection {
 		if (!isValid(selectedCell)) {
 			throw new InvalidUserSelection("Invalid values provided for row or column or both");
 		}
