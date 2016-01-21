@@ -3,6 +3,7 @@ package org.naveen.minesweeper;
 import org.naveen.minesweeper.Cell;
 
 // assumptions: 1. row and columns will not exceed 128, 128 (meaning 128 rows and 128 columns grid)
+// assumptions: 2. when one cell is compared to another, only x,y values are checked for equality in equals method.
 
 public class Cell {
 	public static final int SPACE = 0;

@@ -16,6 +16,7 @@ public class Board {
 	private int noOfOpened = 0;	
 	private Scanner in = new Scanner(System.in);
 	private boolean isCompleted = false;
+	private List<Integer> mines = null;
 	
 	public Board(int rows, int cols, int noOfMines) {
 		validate(rows, cols, noOfMines);
@@ -65,6 +66,7 @@ public class Board {
 		
 		if (boardCell.containsMine()) {
 			this.isCompleted = true;
+			openMines();
 			throw new GameOverException("Sorry!!! You lose the game. You stepped on a mine. ");
 		}
 		else {
@@ -128,6 +130,7 @@ public class Board {
 			mineCell.setValue(Cell.MINE);
 		}
 		
+		this.mines = mines;
 		// assign count to neighbors
 		fillNeighbors(mines);
 	}
@@ -150,7 +153,15 @@ public class Board {
 		if (isCompleted()) {
 			this.isCompleted = true;
 			//break exit;
+			openMines();
 			throw new GameOverException("Congratulations!!! You won the game.");
+		}
+	}
+	
+	private void openMines() {
+		for (Integer mine : mines) {
+			Cell cell = getCell(mine);
+			cell.setOpened(true);
 		}
 	}
 	
