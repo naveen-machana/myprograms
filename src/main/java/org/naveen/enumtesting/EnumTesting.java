@@ -20,12 +20,6 @@ public class EnumTesting {
         Class<?> clsA = Class.forName("org.naveen.enumtesting.Days", true, loader1);
         Class<?> clsB = Class.forName("org.naveen.enumtesting.Days", true, loader2);
  
-        System.out.println("org.naveen.enumtesting.Days class: " + clsA);
- 
-        //Object instanceA = clsA.newInstance();
-        //Object instanceB = clsB.newInstance();
- 
- 
         if (clsA.equals(clsB)) {
             System.out.println("class loaded in different customer classloader are same");
         }
@@ -33,8 +27,12 @@ public class EnumTesting {
             System.out.println("class loaded in different customer classloader are different.");
         }
         
-        Days sundayFromClsA = null;
-        Days sundayFromClsB = null;
+        // the below Days declaration could be confusing
+        // now that we have the Days class loaded from different classloaders
+        // if we try to typecast the object to Days, we would be 
+        // getting typecast error.
+        // Days sundayFromClsA = null;
+        // Days sundayFromClsB = null;
         
         Field[] fields = clsA.getDeclaredFields();
         for (Field f : fields) {

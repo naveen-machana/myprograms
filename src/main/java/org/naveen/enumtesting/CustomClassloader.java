@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+// the below code is taken from 
+// http://yiyujia.blogspot.in/2011/10/java-class-loader-and-static-variable.html
 public class CustomClassloader extends ClassLoader {
 
 	public CustomClassloader() {
@@ -38,9 +40,9 @@ public class CustomClassloader extends ClassLoader {
      
      
             // We are getting a name that looks like
-            // javablogging.package.ClassToLoad
+            // org.naveen.enumtesting.Days
             // and we have to convert it into the .class file name
-            // like javablogging/package/ClassToLoad.class
+            // like org/naveen/enumtesting/Days.class
             String file = name.replace('.', File.separatorChar)
                 + ".class";
             byte[] b = null;
