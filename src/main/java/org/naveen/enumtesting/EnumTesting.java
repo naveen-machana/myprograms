@@ -34,11 +34,14 @@ public class EnumTesting {
         // Days sundayFromClsA = null;
         // Days sundayFromClsB = null;
         
+        Object instanceLoadedFromA = null;
+        Object instanceLoadedFromB = null;
+        
         Field[] fields = clsA.getDeclaredFields();
         for (Field f : fields) {
         	f.setAccessible(true);
         	if ("SUNDAY".equals(f.getName())) {        		
-        		System.out.println(f.get(null).hashCode());
+        		instanceLoadedFromA = f.get(null);
         	}
         }
         
@@ -46,9 +49,17 @@ public class EnumTesting {
         for (Field f : fields2) {
         	f.setAccessible(true);
         	if ("SUNDAY".equals(f.getName())) {
-        		System.out.println(f.get(null).hashCode());
+        		instanceLoadedFromB = f.get(null);
         	}
         }
+        
+        System.out.println("Classloader from instanceA: " + instanceLoadedFromA.getClass().getClassLoader());
+        System.out.println("Classloader from instanceB: " + instanceLoadedFromB.getClass().getClassLoader());
+        System.out.println("instanceLoadedFromA hashCode: " + instanceLoadedFromA.hashCode());
+        System.out.println("instanceLoadedFromB hashCode: " + instanceLoadedFromB.hashCode());
+        System.out.println("Are 2 instances loaded from different classloaders same: " 
+        + (instanceLoadedFromA == instanceLoadedFromB));
 	}
 
 }
+
