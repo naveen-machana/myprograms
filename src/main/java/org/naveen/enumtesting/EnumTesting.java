@@ -53,6 +53,8 @@ public class EnumTesting {
         	}
         }
         
+        System.out.println("instanceLoadedFromA class type: " + instanceLoadedFromA.getClass());
+        System.out.println("instanceLoadedFromB class type: " + instanceLoadedFromB.getClass());
         System.out.println("Classloader from instanceA: " + instanceLoadedFromA.getClass().getClassLoader());
         System.out.println("Classloader from instanceB: " + instanceLoadedFromB.getClass().getClassLoader());
         System.out.println("instanceLoadedFromA hashCode: " + instanceLoadedFromA.hashCode());
