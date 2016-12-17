@@ -1,4 +1,4 @@
-package org.naveen.sampleprograms.concurrency;
+package org.naveen.concurrency;
 
 import java.util.concurrent.ConcurrentSkipListSet;
 
